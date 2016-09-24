@@ -9,7 +9,7 @@ namespace IT {
 
         //Startup Methode
 
-        public Form1() {
+        public Form1() { 
             InitializeComponent();
             cleanup();
         }
@@ -17,6 +17,7 @@ namespace IT {
         //Design 
 
         public void cleanup() {
+
             button1.Visible = true;
             label1.Visible = true;
             label2.Visible = true;
@@ -26,6 +27,7 @@ namespace IT {
             textBox3.Visible = true;
             textBox4.Visible = true;
             checkBox1.Visible = false;
+
             switch (aufgabennummer) {
                 case 1:
                     label1.Text = "Meter";
@@ -34,28 +36,33 @@ namespace IT {
                     textBox3.Visible = false;
                     textBox4.Visible = false;
                     break;
+
                 case 2:
                     label1.Text = "P1:";
                     label2.Text = "P2:";
                     label3.Visible = false;
                     textBox4.Visible = false;
                     break;
+
                 case 3:
                     label1.Text = "Höhe:";
                     label2.Text = "Breite:";
                     label3.Text = "Pixel:";
                     break;
+
                 case 4:
                     label1.Text = "Stunden:";
                     label2.Text = "Kilometer:";
                     label3.Visible = false;
                     textBox4.Visible = false;
                     break;
+
                 case 5:
                     label1.Text = "Zylinder:";
                     label2.Text = "Heads:";
                     label3.Text = "Sektoren:";
                     break;
+
                 case 6:
                     label1.Text = "Exponent:";
                     label2.Visible = false;
@@ -63,6 +70,7 @@ namespace IT {
                     textBox3.Visible = false;
                     textBox4.Visible = false;
                     break;
+
                 case 7:
                     label1.Text = "Kartuschen:";
                     label2.Visible = false;
@@ -71,6 +79,7 @@ namespace IT {
                     textBox4.Visible = false;
                     checkBox1.Visible = true;
                     break;
+
                 default:
                     label1.Visible = false;
                     label2.Visible = false;
@@ -140,15 +149,15 @@ namespace IT {
                     break;
                 case 6:
                     int exponent = Int32.Parse(textBox2.Text);
-                    double result = Math.Pow(2, exponent);
+                    double result = Math.Pow(exponent, 2);
 
                     textBox1.Text = result.ToString();
                     break;
                 case 7:
                     int kartuschen = Int32.Parse(textBox2.Text);
                     double betrag = kartuschen * 23.85;
-
                     //mit Erweiterung:
+
                     if (erweiterung && kartuschen > 5) {
                         betrag = betrag - (betrag * 0.07);
                     }
