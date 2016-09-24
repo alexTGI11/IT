@@ -1,0 +1,160 @@
+using System;
+using System.Windows.Forms;
+
+namespace IT {
+    public partial class Form1 : Form {
+
+        //Momentane Aufgabennummer
+        int aufgabennummer;
+
+        //Startup Methode
+
+        public Form1() {
+            InitializeComponent();
+            cleanup();
+        }
+
+        //Design 
+
+        public void cleanup() {
+            button1.Visible = true;
+            label1.Visible = true;
+            label2.Visible = true;
+            label3.Visible = true;
+            textBox1.Visible = true;
+            textBox2.Visible = true;
+            textBox3.Visible = true;
+            textBox4.Visible = true;
+            checkBox1.Visible = false;
+            switch (aufgabennummer) {
+                case 1:
+                    label1.Text = "Meter";
+                    label2.Visible = false;
+                    label3.Visible = false;
+                    textBox3.Visible = false;
+                    textBox4.Visible = false;
+                    break;
+                case 2:
+                    label1.Text = "P1:";
+                    label2.Text = "P2:";
+                    label3.Visible = false;
+                    textBox4.Visible = false;
+                    break;
+                case 3:
+                    label1.Text = "Höhe:";
+                    label2.Text = "Breite:";
+                    label3.Text = "Pixel:";
+                    break;
+                case 4:
+                    label1.Text = "Stunden:";
+                    label2.Text = "Kilometer:";
+                    label3.Visible = false;
+                    textBox4.Visible = false;
+                    break;
+                case 5:
+                    label1.Text = "Zylinder:";
+                    label2.Text = "Heads:";
+                    label3.Text = "Sektoren:";
+                    break;
+                case 6:
+                    label1.Text = "Exponent:";
+                    label2.Visible = false;
+                    label3.Visible = false;
+                    textBox3.Visible = false;
+                    textBox4.Visible = false;
+                    break;
+                case 7:
+                    label1.Text = "Kartuschen:";
+                    label2.Visible = false;
+                    label3.Visible = false;
+                    textBox3.Visible = false;
+                    textBox4.Visible = false;
+                    checkBox1.Visible = true;
+                    break;
+                default:
+                    label1.Visible = false;
+                    label2.Visible = false;
+                    label3.Visible = false;
+                    label4.Text = "Aufgabe:";
+                    textBox1.Visible = false;
+                    textBox2.Visible = false;
+                    textBox3.Visible = false;
+                    textBox4.Visible = false;
+                    button1.Visible = false;
+                    break;
+            }
+        }
+
+        //"Berechnen" Button
+
+        private void button1_Click(object sender, EventArgs e) {
+            Aufgabe(aufgabennummer, checkBox1.Checked);
+        }
+
+        //Checkbox bei Aufgabe 7
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
+            aufgabennummer = Int32.Parse(comboBox1.Text);
+            cleanup();
+        }
+
+
+        //AUFGABEN:
+
+        public void Aufgabe(int nummer, Boolean erweiterung) {
+
+            aufgabennummer = nummer;
+
+            switch (nummer) {
+                case 1:
+                    int meter = Int32.Parse(textBox2.Text);
+                    int anzahl = Int32.Parse(textBox2.Text) / 250;
+                    textBox1.Text = anzahl.ToString();
+                    break;
+                case 2:
+                    double p1 = Double.Parse(textBox2.Text);
+                    double p2 = Double.Parse(textBox3.Text);
+                    double ergebnis = 10 * Math.Log10(p1 / p2);
+                    textBox1.Text = ergebnis.ToString();
+                    break;
+                case 3:
+                    int h = Int32.Parse(textBox2.Text);
+                    int b = Int32.Parse(textBox3.Text);
+                    int ppi = Int32.Parse(textBox4.Text);
+                    double gr = b * h / Math.Pow(25.4, 2) * Math.Pow(ppi, 2) / Math.Pow(1024, 2);
+                    textBox1.Text = gr.ToString() + " MB";
+                    break;
+                case 4:
+                    int stunden = Int32.Parse(textBox2.Text);
+                    double km = Int32.Parse(textBox3.Text);
+                    double kosten = stunden * 89 + km * 0.25;
+                    textBox1.Text = kosten.ToString();
+                    break;
+                case 5:
+                    int cylinder = Int32.Parse(textBox2.Text);
+                    int heap = Int32.Parse(textBox3.Text);
+                    int sector = Int32.Parse(textBox4.Text);
+
+                    int capacity = cylinder * heap * sector * 512 / sector / 2048;
+                    textBox1.Text = capacity.ToString() + " MB";
+                    break;
+                case 6:
+                    int exponent = Int32.Parse(textBox2.Text);
+                    double result = Math.Pow(2, exponent);
+
+                    textBox1.Text = result.ToString();
+                    break;
+                case 7:
+                    int kartuschen = Int32.Parse(textBox2.Text);
+                    double betrag = kartuschen * 23.85;
+
+                    //mit Erweiterung:
+                    if (erweiterung && kartuschen > 5) {
+                        betrag = betrag - (betrag * 0.07);
+                    }
+                    textBox1.Text = betrag.ToString() + " €";
+                    break;
+            }
+        }
+    }
+}
